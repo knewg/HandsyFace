@@ -1,0 +1,41 @@
+#!/bin/bash
+if ! which rsvg-convert > /dev/null; then
+  echo "Install rsvg-convert before using this";
+  exit
+fi
+if [ -z $1 ]; then
+  echo "Usage: $(basename $0) size";
+  echo "Current adjusted sizes: 15, 20"
+  exit
+fi
+if [[ ! "$1" =~ ^[0-9]+$ ]]; then
+  echo "Invalid size '$1', size needs to be an int"
+  exit
+fi
+if [ ! -d "$1" ]; then
+  mkdir "$1"
+fi
+case $1 in
+  20)
+    stepsHeight=18;
+    caloriesHeight=18;
+    timeHeight=16;
+    activityHeight=17;
+    ;;
+  15)
+    stepsHeight=14;
+    caloriesHeight=14;
+    timeHeight=11;
+    activityHeight=12;
+    ;;
+  *)
+    stepsHeight=$1;
+    caloriesHeight=$1;
+    timeHeight=$1;
+    activityHeight=$1;
+esac
+rsvg-convert -h $stepsHeight originals/noun_steps_1166846.svg > "$1/steps.png"
+rsvg-convert -h $caloriesHeight originals/noun_calories_1180285.svg > "$1/calories.png"
+rsvg-convert -h $timeHeight originals/noun_Time_2305857.svg > "$1/time.png"
+rsvg-convert -h $activityHeight  originals/noun_activity_1911201.svg > "$1/activity.png"
+sed -i '' "s/filename=\".*\//filename=\"$1\//" drawables.xml

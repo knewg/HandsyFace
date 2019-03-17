@@ -1,0 +1,22 @@
+<drawables>
+    <bitmap id="caloriesIcon" filename="20/calories.png" >
+    	<palette>
+            <color>00AAFF</color>
+        </palette>
+    </bitmap>
+    <bitmap id="timeIcon" filename="20/time.png">
+    	<palette>
+            <color>FF0000</color>
+        </palette>
+    </bitmap>
+    <bitmap id="stepsIcon" filename="20/steps.png">
+    	<palette>
+            <color>00FF00</color>
+        </palette>
+    </bitmap>
+    <bitmap id="activityIcon" filename="20/activity.png">
+    	<palette>
+            <color>FF00FF</color>
+        </palette>
+    </bitmap>
+</drawables>
