@@ -40,7 +40,7 @@ The icons used are:
 * [activity by mikicon](https://thenounproject.com/icon/1911201/)
 
 ## Known limitations
-I did not bother to figure out a reasonable way to handle "rollaround", i.e. when you reach more than double your goals. Right now it will just look wrap around. I might do something about this in the future. See #1 for more information.
+I did not bother to figure out a reasonable way to handle "rollaround", i.e. when you reach more than double your goals. Right now it will just look wrap around. I might do something about this in the future. See [Issue #1](https://github.com/knewg/HandsyFace/issues/1) for more information.
 
 ## License
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
