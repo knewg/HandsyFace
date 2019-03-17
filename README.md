@@ -1,7 +1,19 @@
 # HandsyFace
-Garmin watch face using hands instead of numbers.
+Garmin watch face using hands instead of numbers. the hands start at 12 o clock and traverses around the screen as regular watch hands. In the middle, the date is displayed. There are four watch hands, from the outside in:
 
-Very simple, and reasonably clean. Not sure I like it yet.
+#### Time hand
+Displays the current time the same way a regular hour hand on a watch does. You can see the time with what's usually enough precision, basically every 15 minutes or so.
+
+#### Activity hand
+Shows how close you are to your set activity goal for the week. *Note that the goal is at 6 o clock (the bottom of the screen) to accomodate and encourage continous improvement.*
+
+#### Calories hand
+Shows how many calories you have burned during the day. Due to not figuring out the settings system and not having enough energy to research more, a goal is compiled in. It is currently set to 1500 above average MBR (2000 kcal).  *Note that the goal is at 6 o clock (the bottom of the screen) to accomodate and encourage continous improvement.*
+
+#### Steps hand
+Shows how close you are to reaching the step goal for the day. *Note that the goal is at 6 o clock (the bottom of the screen) to accomodate and encourage continous improvement.*
+
+Very simple, and reasonably clean. Not sure if I like it yet.
 
 ## Installation instructions
 There are two main ways to install this watchface
@@ -16,6 +28,8 @@ If you need to resize the icons there is a script for this in the resources/draw
 
 After using the "build for device wizard", transfer the built binary per the instructions above.
 
+Note: If you are changing the colors, remember to update the drawables file aswell, since garmin does not allow you to repaint icons in run time.
+
 ## Attributions
 Icons where downloaded from [The Noun Project](https://thenounproject.com/)
 The icons used are:
@@ -24,6 +38,9 @@ The icons used are:
 * [steps by Shiva](https://thenounproject.com/icon/1166846/)
 * [Time by Barracuda](https://thenounproject.com/icon/2305857/)
 * [activity by mikicon](https://thenounproject.com/icon/1911201/)
+
+## Known limitations
+I did not bother to figure out a reasonable way to handle "rollaround", i.e. when you reach more than double your goals. Right now it will just look wrap around. I might do something about this in the future.
 
 ## License
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
