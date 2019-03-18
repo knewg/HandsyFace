@@ -53,7 +53,7 @@ class HandsyFaceView extends WatchUi.WatchFace {
         		"color" => Graphics.COLOR_GREEN
         	},
         	"time" => {
-        		"icon" => WatchUi.loadResource(Rez.Drawables.timeIcon),
+        		"icon" => null, //WatchUi.loadResource(Rez.Drawables.timeIcon),
         		"color" => Graphics.COLOR_RED
         	},
         	"activity" => {
@@ -70,9 +70,12 @@ class HandsyFaceView extends WatchUi.WatchFace {
         	var hand = hands[handKeys[i]];
         	hand["order"] = i;
         	hand["offset"] = screenCenterPoint[0] - (handLength * (i + 1));
-        	hand["iconWidth"] = hand["icon"].getWidth();
-        	hand["iconHeight"] = hand["icon"].getHeight();
-        	hand["iconHeightDiff"] = (handLength - hand["iconHeight"]) / 2;
+        	if(hand["icon"] != null)
+        	{
+        		hand["iconWidth"] = hand["icon"].getWidth();
+        		hand["iconHeight"] = hand["icon"].getHeight();
+        		hand["iconHeightDiff"] = (handLength - hand["iconHeight"]) / 2;
+        	}
         }
         
         // Pre calculate all the angles for the hours and keep them in memory.
@@ -137,7 +140,10 @@ class HandsyFaceView extends WatchUi.WatchFace {
         	var hand = hands[handKeys[i]];
         	dc.setColor(hand["color"], Graphics.COLOR_TRANSPARENT);
         	dc.fillPolygon(generateHandCoordinates(screenCenterPoint, angles[i], handLength, 0, hand["offset"], 3));
-        	dc.drawBitmap( screenCenterPoint[0]-hand["iconWidth"]/2, screenCenterPoint[1] + hand["iconHeightDiff"] +(screenCenterPoint[1] / split * (split-i-1)), hand["icon"]);
+        	if(hand["icon"] != null)
+        	{
+        		dc.drawBitmap( screenCenterPoint[0]-hand["iconWidth"]/2, screenCenterPoint[1] + hand["iconHeightDiff"] +(screenCenterPoint[1] / split * (split-i-1)), hand["icon"]);
+        	}
         }
     }
     
