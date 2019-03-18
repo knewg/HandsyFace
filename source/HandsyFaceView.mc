@@ -13,6 +13,7 @@ class HandsyFaceView extends WatchUi.WatchFace {
 	var handKeys;
 	var numHandKeys;
 	var angles;
+	var hourAngles;
 	
 	var bmr = 2000.0;
 	var caloriesGoal = 1500.0;
@@ -62,6 +63,7 @@ class HandsyFaceView extends WatchUi.WatchFace {
         };
         handKeys = hands.keys();
         numHandKeys = handKeys.size();
+        hourAngles = new [12]; 
         angles = new [numHandKeys];
         for(var i = 0; i < numHandKeys; i++) //Loop through everything and calculate it
         {
@@ -71,6 +73,13 @@ class HandsyFaceView extends WatchUi.WatchFace {
         	hand["iconWidth"] = hand["icon"].getWidth();
         	hand["iconHeight"] = hand["icon"].getHeight();
         	hand["iconHeightDiff"] = (handLength - hand["iconHeight"]) / 2;
+        }
+        
+        // Pre calculate all the angles for the hours and keep them in memory.
+        hourAngles[0] = 0;
+        for(var i = 1; i < 12; i++)
+        {
+        	hourAngles[i] = (i / 12.0) * Math.PI * 2.0;
         }
     }
 
@@ -98,7 +107,10 @@ class HandsyFaceView extends WatchUi.WatchFace {
 		
 		// Get time data
 		var clockTime = System.getClockTime();
-		var hourHandAngle = (((clockTime.hour % 12) * 60) + clockTime.min);
+		var thisHour = (clockTime.hour % 12);
+		var nextHour = (thisHour+1) % 12;
+		var nextNextHour = (thisHour+2) % 12;
+		var hourHandAngle = ((thisHour * 60) + clockTime.min);
         hourHandAngle = hourHandAngle / (12 * 60.0);
         hourHandAngle = hourHandAngle * Math.PI * 2;
         angles[hands["time"]["order"]] = hourHandAngle;
@@ -112,6 +124,13 @@ class HandsyFaceView extends WatchUi.WatchFace {
         var dateStr = Lang.format("$1$ $2$", [calendar.month, calendar.day]);
         var fontHeight = Graphics.getFontHeight(Graphics.FONT_TINY);
         dc.drawText(screenCenterPoint[0], screenCenterPoint[1]-(fontHeight/2), Graphics.FONT_TINY, dateStr, Graphics.TEXT_JUSTIFY_CENTER);
+        
+        // Draw hour helper hands
+        var helperHandLength = handLength / 3;
+        dc.fillPolygon(generateHandCoordinates(screenCenterPoint, hourAngles[nextHour], helperHandLength, 0, hands["time"]["offset"] + (handLength - helperHandLength), 3));
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.fillPolygon(generateHandCoordinates(screenCenterPoint, hourAngles[thisHour], helperHandLength, 0, hands["time"]["offset"] + (handLength - helperHandLength), 3));
+        dc.fillPolygon(generateHandCoordinates(screenCenterPoint, hourAngles[nextNextHour], helperHandLength, 0, hands["time"]["offset"] + (handLength - helperHandLength), 3));
         
         for(var i = 0; i < numHandKeys; i++) //Loop through everything and calculate it
         {
