@@ -13,6 +13,7 @@ class HandsyFaceView extends WatchUi.WatchFace {
 	var handKeys;
 	var numHandKeys;
 	var angles;
+	var counters;
 	var hourAngles;
 	
 	var bmr = 2000.0;
@@ -65,6 +66,7 @@ class HandsyFaceView extends WatchUi.WatchFace {
         numHandKeys = handKeys.size();
         hourAngles = new [12]; 
         angles = new [numHandKeys];
+        counters = new [numHandKeys];
         for(var i = 0; i < numHandKeys; i++) //Loop through everything and calculate it
         {
         	var hand = hands[handKeys[i]];
@@ -97,16 +99,19 @@ class HandsyFaceView extends WatchUi.WatchFace {
 		var info = ActivityMonitor.getInfo();
 
 		// Get step data
-		var stepAngle = (info.steps / (info.stepGoal * 2.0)) * (2.0 * Math.PI);
-		angles[hands["steps"]["order"]] = stepAngle; 
+		var stepRatio = (info.steps.toFloat() / (info.stepGoal.toFloat()));
+		angles[hands["steps"]["order"]] = stepRatio * 2.0 * Math.PI; 
+		counters[hands["steps"]["order"]] = Math.floor(stepRatio).toNumber();
 		
 		// Get calorie data
-		var calorieAngle = (info.calories / (bmr + caloriesGoal * 2.0)) * (2.0 * Math.PI);
-		angles[hands["calories"]["order"]] = calorieAngle;
+		var calorieRatio = info.calories.toFloat() / (bmr.toFloat() + caloriesGoal.toFloat());
+		angles[hands["calories"]["order"]] = calorieRatio * 2.0 * Math.PI;
+		counters[hands["calories"]["order"]] = Math.floor(calorieRatio).toNumber();
 		
 		// Get active minute data
-		var activeMinutesAngle = (info.activeMinutesWeek.total / (info.activeMinutesWeekGoal * 2.0)) * (2 * Math.PI);
-		angles[hands["activity"]["order"]] = activeMinutesAngle;
+		var activeMinutesRatio = info.activeMinutesWeek.total.toFloat() / info.activeMinutesWeekGoal.toFloat();
+		angles[hands["activity"]["order"]] = activeMinutesRatio * 2.0 * Math.PI;
+		counters[hands["activity"]["order"]] = Math.floor(activeMinutesRatio).toNumber();
 		
 		// Get time data
 		var clockTime = System.getClockTime();
@@ -117,6 +122,7 @@ class HandsyFaceView extends WatchUi.WatchFace {
         hourHandAngle = hourHandAngle / (12 * 60.0);
         hourHandAngle = hourHandAngle * Math.PI * 2;
         angles[hands["time"]["order"]] = hourHandAngle;
+        counters[hands["time"]["order"]] = 0;
 		
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
@@ -143,6 +149,10 @@ class HandsyFaceView extends WatchUi.WatchFace {
         	if(hand["icon"] != null)
         	{
         		dc.drawBitmap( screenCenterPoint[0]-hand["iconWidth"]/2, screenCenterPoint[1] + hand["iconHeightDiff"] +(screenCenterPoint[1] / split * (split-i-1)), hand["icon"]);
+        		if(counters[hand["order"]] > 0)
+        		{
+        			dc.drawText(screenCenterPoint[0]+10, screenCenterPoint[1] +(screenCenterPoint[1] / split * (split-i-1)-4), Graphics.FONT_XTINY, counters[hand["order"]], Graphics.TEXT_JUSTIFY_LEFT);
+        		}
         	}
         }
     }
