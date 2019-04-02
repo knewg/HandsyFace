@@ -50,3 +50,5 @@ None at the moment
 
 ## Screenshots
 Screenshots are located in the [screenshots directory](https://github.com/knewg/HandsyFace/tree/master/screenshots).
+
+![Thumbnail](https://github.com/knewg/HandsyFace/blob/master/screenshots/thumbnail.png)
