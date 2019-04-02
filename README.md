@@ -5,15 +5,18 @@ Garmin watch face using hands instead of numbers. the hands start at 12 o clock 
 Displays the current time the same way a regular hour hand on a watch does. You can see the time with what's usually enough precision, basically every 15 minutes or so.
 
 #### Activity hand
-Shows how close you are to your set activity goal for the week. *Note that the goal is at 6 o clock (the bottom of the screen) to accomodate and encourage continous improvement.*
+Shows how close you are to your set activity goal for the week.
 
 #### Calories hand
-Shows how many calories you have burned during the day. Due to not figuring out the settings system and not having enough energy to research more, a goal is compiled in. It is currently set to 1500 above average MBR (2000 kcal).  *Note that the goal is at 6 o clock (the bottom of the screen) to accomodate and encourage continous improvement.*
+Shows how many calories you have burned during the day. Due to not figuring out the settings system and not having enough energy to research more, a goal is compiled in. It is currently set to 1500 above average MBR (2000 kcal).
 
 #### Steps hand
-Shows how close you are to reaching the step goal for the day. *Note that the goal is at 6 o clock (the bottom of the screen) to accomodate and encourage continous improvement.*
+Shows how close you are to reaching the step goal for the day.
 
 Very simple, and reasonably clean. Not sure if I like it yet.
+
+## Rollaround
+A small number is added next to each counter for each doubling of the goal. If your step goal is 5000 and you take 5001 steps, the number will be 1 and the arrow will point straight up.
 
 ## Installation instructions
 There are two main ways to install this watchface
@@ -40,7 +43,7 @@ The icons used are:
 * [activity by mikicon](https://thenounproject.com/icon/1911201/)
 
 ## Known limitations
-I did not bother to figure out a reasonable way to handle "rollaround", i.e. when you reach more than double your goals. Right now it will just look wrap around. I might do something about this in the future. See [Issue #1](https://github.com/knewg/HandsyFace/issues/1) for more information.
+None at the moment
 
 ## License
 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
